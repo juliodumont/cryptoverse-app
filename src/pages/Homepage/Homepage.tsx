@@ -6,45 +6,7 @@ import { Link } from 'react-router-dom';
 const { Title } = Typography;
 import { useGetCryptosQuery } from '../../services/cryptoApi';
 import { Cryptocurrencies, News } from '../../pages';
-
-type Coin = {
-  uuid: string;
-  symbol: string;
-  name: string;
-};
-
-type Stats = {
-  total: number;
-  total24hVolume: string;
-  totalCoins: number;
-  totalExchanges: number;
-  totalMarketCap: string;
-  totalMarkets: number;
-};
-
-type Coins = {
-  coins: Coin[];
-  stats: Stats;
-};
-
-export type CoinInfo = {
-  '24hVolume': string;
-  btcPrice: string;
-  change: string;
-  coinrankingUrl: string;
-  color: string;
-  iconUrl: string;
-  listedAt: number;
-  lowVolume: false;
-  marketCap: string;
-  name: string;
-  price: string;
-  rank: number;
-  sparkline: string[];
-  symbol: string;
-  tier: number;
-  uuid: string;
-};
+import { Stats } from '../../types';
 
 const Homepage = () => {
   const { data, isFetching } = useGetCryptosQuery(10);

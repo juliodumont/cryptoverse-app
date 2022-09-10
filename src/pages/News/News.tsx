@@ -10,7 +10,7 @@ const { Option } = Select;
 const demoImage = 'https://www.bing.com/th?id=OVFT.mpzuVZnv8dwIMRfQGPbOPC&pid=News';
 
 type NewsProps = {
-  simplified: boolean;
+  simplified?: boolean;
 };
 
 type Image = {

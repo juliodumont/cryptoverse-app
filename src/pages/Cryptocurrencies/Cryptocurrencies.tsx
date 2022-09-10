@@ -3,10 +3,10 @@ import { Link } from 'react-router-dom';
 import { Card, Row, Col, Input } from 'antd';
 import { useGetCryptosQuery } from '../../services/cryptoApi';
 import { useEffect, useState } from 'react';
-import { CoinInfo } from '../Homepage/Homepage';
+import { CoinInfo } from '../../types';
 
 type CryptocurrenciesProps = {
-  simplified: boolean;
+  simplified?: boolean;
 };
 
 const Cryptocurrencies = ({ simplified }: CryptocurrenciesProps) => {
@@ -36,7 +36,7 @@ const Cryptocurrencies = ({ simplified }: CryptocurrenciesProps) => {
       <Row gutter={[32, 32]} className="crypto-card-container">
         {cryptos?.map((currency) => (
           <Col xs={24} sm={12} lg={6} className="crypto-card" key={currency.uuid}>
-            <Link to={`/crypt/${currency.uuid}`}>
+            <Link to={`/crypto/${currency.uuid}`}>
               <Card
                 title={`${currency.rank}. ${currency.name}`}
                 extra={<img className="crypto-image" src={currency.iconUrl} />}
