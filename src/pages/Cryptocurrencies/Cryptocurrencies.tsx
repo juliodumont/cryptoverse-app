@@ -4,6 +4,7 @@ import { Card, Row, Col, Input } from 'antd';
 import { useGetCryptosQuery } from '../../services/cryptoApi';
 import { useEffect, useState } from 'react';
 import { CoinInfo } from '../../types';
+import { Loader } from '../../components';
 
 type CryptocurrenciesProps = {
   simplified?: boolean;
@@ -22,6 +23,8 @@ const Cryptocurrencies = ({ simplified }: CryptocurrenciesProps) => {
 
     setCryptos(filteredData);
   }, [cryptosList, searchTerm]);
+
+  if (isFetching) return <Loader />;
 
   return (
     <>

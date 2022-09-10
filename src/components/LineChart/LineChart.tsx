@@ -1,15 +1,55 @@
 import { Line } from 'react-chartjs-2';
+import { Chart as ChartJS, LineElement, PointElement, LinearScale, CategoryScale } from 'chart.js';
+
+ChartJS.register(LineElement, PointElement, LinearScale, CategoryScale);
+
 import { Col, Row, Typography } from 'antd';
+import Loader from '../Loader/Loader';
 
 const { Title } = Typography;
 
 type LineChartProps = {
-  coinHistory: any | undefined;
-  currentPrice: string;
-  coinName: string;
+  coinHistory?: any | undefined;
+  currentPrice?: string;
+  coinName?: string;
 };
 
 const LineChart = ({ coinHistory, currentPrice, coinName }: LineChartProps) => {
+  const coinPrice = [];
+  const coinTimestamp = [];
+
+  if (!coinHistory) return <Loader />;
+
+  for (let index = 0; index < coinHistory?.data?.history?.length; index++) {
+    coinPrice.push(coinHistory?.data?.history[index].price);
+    coinTimestamp.push(new Date(coinHistory?.data?.history[index].timestamp).toLocaleDateString());
+  }
+
+  const data = {
+    labels: coinTimestamp,
+    datasets: [
+      {
+        label: 'Price In USD',
+        data: coinPrice,
+        fill: false,
+        backgroundColor: '#0071bd',
+        borderColor: '#0071bd'
+      }
+    ]
+  };
+
+  const options = {
+    scale: {
+      yAxes: [
+        {
+          ticks: {
+            beginAtZero: true
+          }
+        }
+      ]
+    }
+  };
+
   return (
     <>
       <Row className="chart-header">
@@ -25,6 +65,7 @@ const LineChart = ({ coinHistory, currentPrice, coinName }: LineChartProps) => {
           </Title>
         </Col>
       </Row>
+      <Line data={data} options={options} />
     </>
   );
 };
