@@ -12,17 +12,30 @@ import icon from '../../assets/images/cryptocurrency.png';
 
 const Navbar = () => {
   return (
-    <nav>
+    <header className="navbar">
       <div className="nav-container">
         <div className="logo-container">
           <Avatar src={icon} size="large" />
           <Typography.Title level={2} className="logo">
             <NavLink to="/">Cryptoverse</NavLink>
           </Typography.Title>
-          <Button className="menu-control-container"></Button>
         </div>
+        <Menu theme="dark">
+          <Menu.Item icon={<HomeOutlined />}>
+            <NavLink to="/">Home</NavLink>
+          </Menu.Item>
+          <Menu.Item icon={<FundOutlined />}>
+            <NavLink to="/cryptocurrencies">Cryptocurrencies</NavLink>
+          </Menu.Item>
+          <Menu.Item icon={<MoneyCollectOutlined />}>
+            <NavLink to="/exchanges">Exchanges</NavLink>
+          </Menu.Item>
+          <Menu.Item icon={<BulbOutlined />}>
+            <NavLink to="/news">News</NavLink>
+          </Menu.Item>
+        </Menu>
       </div>
-    </nav>
+    </header>
   );
 };
 
