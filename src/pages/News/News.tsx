@@ -4,6 +4,7 @@ import moment from 'moment';
 import { useGetCryptoNewsQuery } from '../../services/cryptoNewsApi';
 import { useGetCryptosQuery } from '../../services/cryptoApi';
 import { Loader } from '../../components';
+import { CoinInfo } from '../../types';
 
 const { Text, Title } = Typography;
 const { Option } = Select;
@@ -31,13 +32,15 @@ type News = {
 const News = ({ simplified }: NewsProps) => {
   const [newsCategory, setNewsCategory] = useState('Cryptocurrency');
 
-  const { data: cryptoNews } = useGetCryptoNewsQuery({
+  const { data: cryptoNews, isFetching } = useGetCryptoNewsQuery({
     newsCategory: newsCategory,
     count: simplified ? 6 : 12
   });
   const { data } = useGetCryptosQuery(100);
 
-  if (!cryptoNews?.value) return <Loader />;
+  if (isFetching) return <Loader />;
+
+  const coins: CoinInfo[] = (data?.data?.coins as CoinInfo[]) ?? ({} as CoinInfo[]);
 
   return (
     <Row gutter={[24, 24]}>
@@ -49,12 +52,9 @@ const News = ({ simplified }: NewsProps) => {
             placeholder="Select a crypto"
             optionFilterProp="children"
             onChange={(value) => setNewsCategory(value)}
-            filterOption={(input, option) =>
-              option?.children?.toLowerCase().indexOf(input.toLowerCase()) >= 0
-            }
           >
             <Option value="Cryptocurrency">Cryptocurrency</Option>
-            {data?.data?.coins.map((currency) => (
+            {coins.map((currency) => (
               <Option key={currency.name} value={currency.name}>
                 {currency.name}
               </Option>

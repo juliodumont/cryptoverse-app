@@ -16,6 +16,7 @@ import {
 } from '@ant-design/icons';
 import { useGetCryptoDetailsQuery, useGetCryptoHistoryQuery } from '../../services/cryptoApi';
 import { LineChart, Loader } from '../../components';
+import { CoinInfo } from '../../types';
 
 const { Title, Text } = Typography;
 const { Option } = Select;
@@ -25,31 +26,33 @@ const CryptoDetails = () => {
   const { coinId } = useParams();
   const { data, isFetching } = useGetCryptoDetailsQuery(coinId);
   const { data: coinHistory } = useGetCryptoHistoryQuery({ coinId, timePeriod });
-  const cryptoDetails = data?.data?.coin ?? {};
+
   if (isFetching) return <Loader />;
+
+  const cryptoDetails: CoinInfo = data?.data?.coin ?? {};
 
   const time = ['3h', '24h', '7d', '30d', '1y', '3m', '3y', '5y'];
 
   const stats = [
     {
       title: 'Price to USD',
-      value: `$ ${cryptoDetails.price && millify(cryptoDetails.price)}`,
+      value: `$ ${cryptoDetails.price && millify(parseFloat(cryptoDetails.price))}`,
       icon: <DollarCircleOutlined />
     },
     { title: 'Rank', value: cryptoDetails.rank, icon: <NumberOutlined /> },
     {
       title: '24h Volume',
-      value: `$ ${cryptoDetails['24hVolume'] && millify(cryptoDetails['24hVolume'])}`,
+      value: `$ ${cryptoDetails['24hVolume'] && millify(parseFloat(cryptoDetails['24hVolume']))}`,
       icon: <ThunderboltOutlined />
     },
     {
       title: 'Market Cap',
-      value: `$ ${cryptoDetails?.marketCap && millify(cryptoDetails?.marketCap)}`,
+      value: `$ ${cryptoDetails?.marketCap && millify(parseFloat(cryptoDetails?.marketCap))}`,
       icon: <DollarCircleOutlined />
     },
     {
       title: 'All-time-high(daily avg.)',
-      value: `$ ${millify(cryptoDetails?.allTimeHigh.price)}`,
+      value: `$ ${millify(parseFloat(cryptoDetails?.allTimeHigh.price))} `,
       icon: <TrophyOutlined />
     }
   ];
@@ -68,12 +71,12 @@ const CryptoDetails = () => {
     },
     {
       title: 'Total Supply',
-      value: `$ ${millify(cryptoDetails?.supply?.total)}`,
+      value: `$ ${millify(parseFloat(cryptoDetails?.supply?.total))} `,
       icon: <ExclamationCircleOutlined />
     },
     {
       title: 'Circulating Supply',
-      value: `$ ${millify(cryptoDetails?.supply?.circulating)}`,
+      value: `$ ${millify(parseFloat(cryptoDetails?.supply?.circulating))} `,
       icon: <ExclamationCircleOutlined />
     }
   ];
@@ -101,7 +104,7 @@ const CryptoDetails = () => {
       </Select>
       <LineChart
         coinHistory={coinHistory}
-        currentPrice={millify(cryptoDetails?.price)}
+        currentPrice={millify(parseFloat(cryptoDetails?.price))}
         coinName={cryptoDetails?.name}
       />
       <Col className="stats-container">

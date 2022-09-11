@@ -1,15 +1,23 @@
 import { Line } from 'react-chartjs-2';
-import { Chart as ChartJS, LineElement, PointElement, LinearScale, CategoryScale } from 'chart.js';
+import {
+  Chart as ChartJS,
+  LineElement,
+  PointElement,
+  LinearScale,
+  CategoryScale,
+  ChartOptions
+} from 'chart.js';
 
 ChartJS.register(LineElement, PointElement, LinearScale, CategoryScale);
 
 import { Col, Row, Typography } from 'antd';
 import Loader from '../Loader/Loader';
+import { CoinHistory } from '../../types';
 
 const { Title } = Typography;
 
 type LineChartProps = {
-  coinHistory?: any | undefined;
+  coinHistory?: CoinHistory;
   currentPrice?: string;
   coinName?: string;
 };
@@ -48,7 +56,7 @@ const LineChart = ({ coinHistory, currentPrice, coinName }: LineChartProps) => {
         }
       ]
     }
-  };
+  } as ChartOptions;
 
   return (
     <>
@@ -61,7 +69,7 @@ const LineChart = ({ coinHistory, currentPrice, coinName }: LineChartProps) => {
             {coinHistory?.data?.change}%
           </Title>
           <Title level={5} className="current-price">
-            Current {coinHistory.name} Price: $ {currentPrice}
+            Current {coinName} Price: $ {currentPrice}
           </Title>
         </Col>
       </Row>

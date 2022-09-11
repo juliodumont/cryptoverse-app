@@ -35,4 +35,31 @@ export type CoinInfo = {
   symbol: string;
   tier: number;
   uuid: string;
+  numberOfMarkets: number;
+  numberOfExchanges: number;
+  supply: {
+    confirmed: boolean;
+    circulating: string;
+    total: string;
+  };
+  description: string;
+  links: {
+    name: string;
+    url: string;
+    type: string;
+  }[];
+  allTimeHigh: {
+    price: string;
+    timestamp: number;
+  };
+};
+
+export type CoinHistory = {
+  data: {
+    change: string;
+    history: {
+      price: string;
+      timestamp: number;
+    }[];
+  };
 };
