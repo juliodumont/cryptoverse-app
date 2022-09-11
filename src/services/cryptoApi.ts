@@ -1,5 +1,12 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
+const cryptoApiHeaders = {
+  'X-RapidAPI-Key': import.meta.env.VITE_API_KEY,
+  'X-RapidAPI-Host': import.meta.env.VITE_COINRANKING_API_HOST
+};
+
+const baseUrl = import.meta.env.VITE_COINRANKING_BASE_URL;
+
 const createRequest = (url: string) => ({ url, headers: cryptoApiHeaders });
 
 //reducerPath: 'crypto',  what is this reduce for? A name
