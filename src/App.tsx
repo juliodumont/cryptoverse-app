@@ -1,6 +1,6 @@
 import './App.css';
-import { Routes, Route, Link } from 'react-router-dom';
-import { Layout, Typography, Space } from 'antd';
+import { Routes, Route } from 'react-router-dom';
+import { Layout } from 'antd';
 import { Footer, Navbar } from './components';
 import { Homepage, Cryptocurrencies, CryptoDetails, News } from './pages';
 

@@ -1,16 +1,9 @@
 import { Button, Menu, Typography, Avatar } from 'antd';
 import { NavLink } from 'react-router-dom';
 import { useState, useEffect } from 'react';
-import {
-  HomeOutlined,
-  MoneyCollectOutlined,
-  BulbOutlined,
-  FundOutlined,
-  MenuOutlined
-} from '@ant-design/icons';
+import { HomeOutlined, BulbOutlined, FundOutlined, MenuOutlined } from '@ant-design/icons';
 
 import icon from '../../assets/images/cryptocurrency.png';
-import { ItemType } from 'antd/lib/menu/hooks/useItems';
 
 const Navbar = () => {
   const [activeMenu, setActiveMenu] = useState(true);
@@ -41,11 +34,6 @@ const Navbar = () => {
       key: 'crypto',
       icon: <FundOutlined />,
       label: <NavLink to="/cryptocurrencies">Cryptocurrencies</NavLink>
-    },
-    {
-      key: 'exchanges',
-      icon: <MoneyCollectOutlined />,
-      label: <NavLink to="/exchanges">Exchanges</NavLink>
     },
     {
       key: 'news',
